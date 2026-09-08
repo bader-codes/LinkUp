@@ -67,7 +67,7 @@ export default function SuggestionsSidebar() {
 
                   <div className="min-w-0">
                     <Link
-                      to={`/profile/${user.username}`}
+                      to={`/users/${user._id}`}
                       className="block truncate text-sm font-semibold hover:underline"
                     >
                       {user.name}

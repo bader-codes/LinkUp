@@ -46,7 +46,10 @@ export default function AllPosts() {
         </div>
       ))}
 
-      <div ref={sentinelRef} className="h-10">
+      <div
+        ref={sentinelRef}
+        className="h-10 mx-auto w-[95%] md:w-[85%] lg:w-[65%]"
+      >
         {isFetchingNextPage && <PostSkeleton />}
       </div>
     </div>

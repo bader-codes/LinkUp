@@ -4,8 +4,8 @@ import useCreateComment from "@/hooks/comments/use-create-comment";
 import type { Post } from "@/types/posts/get-all-posts.response";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useId, useState } from "react";
 import { RiSendInsFill } from "react-icons/ri";
-import { useEffect, useState, useId } from "react";
 import { IoClose } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import { LuCamera } from "react-icons/lu";
@@ -23,7 +23,7 @@ export default function CommentForm({
 
   const [previewUrl, setPreviewUrl] = useState<string>();
   const [expanded, setExpanded] = useState(false);
-  const inputId = useId()
+  const id = useId();
 
   const {
     register,
@@ -78,7 +78,7 @@ export default function CommentForm({
 
   return (
     <div>
-      <form onSubmit={handleSubmit(commentSubmit)} className="w-full px-2 pb-3">
+      <form onSubmit={handleSubmit(commentSubmit)} className="w-full px-4 pb-3">
         <div
           className={`relative rounded-3xl bg-gray-200 transition-all duration-300 ${
             expanded ? "rounded-lg" : ""
@@ -119,7 +119,7 @@ export default function CommentForm({
             </button>
 
             <label
-              htmlFor={`comment-image-${inputId}`}
+              htmlFor={`${post._id}${id}`}
               className="pointer-events-auto cursor-pointer"
             >
               <LuCamera className="size-6" />
@@ -127,7 +127,7 @@ export default function CommentForm({
 
             <input
               {...imageRegister}
-              id={`comment-image-${inputId}`}
+              id={`${post._id}${id}`}
               type="file"
               accept="image/*"
               className="hidden"

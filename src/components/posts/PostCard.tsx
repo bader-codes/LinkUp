@@ -10,7 +10,7 @@ import { Dialog, DialogContent } from "../ui/dialog";
 import PostContent from "../posts/PostContent";
 import PostActions from "../posts/PostActions";
 import PostHeader from "../posts/PostHeader";
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import { useState } from "react";
 
 interface PostCardProps {
@@ -22,10 +22,19 @@ export default function PostCard({ post }: PostCardProps) {
   const [commentsOpen, setCommentsOpen] = useState(false);
 
   return (
-    <Card className="my-4 overflow-y-auto">
-      <PostHeader post={post} />
+    <Card className="my-4">
+      <PostHeader post={post} isShare={post.isShare} />
 
-      <PostContent post={post} />
+      {post.sharedPost ? (
+        <Card className="mx-4 rounded-sm px-2">
+          <CardHeader>
+            <PostHeader post={post.sharedPost} isShare={false} />
+            <PostContent post={post.sharedPost} />
+          </CardHeader>
+        </Card>
+      ) : (
+        <PostContent post={post} />
+      )}
 
       <PostActions post={post} onCommentClick={() => setCommentsOpen(true)} />
 
