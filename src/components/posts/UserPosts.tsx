@@ -1,4 +1,3 @@
-import useInfiniteScroll from "@/hooks/shared/use-infinite-scroll";
 import PostSkeleton from "@/components/posts/PostSkeleton";
 import useUserPosts from "@/hooks/users/use-user-posts";
 import PostCard from "./PostCard";
@@ -17,12 +16,6 @@ export default function UserPosts({ userId }: UserPostsProps) {
     isFetchingNextPage,
   } = useUserPosts(userId);
 
-  const sentinelRef = useInfiniteScroll({
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  });
-
   if (isLoading) {
     return <PostSkeleton />;
   }
@@ -31,7 +24,8 @@ export default function UserPosts({ userId }: UserPostsProps) {
     return <div>Something went wrong.</div>;
   }
 
-  const posts = data?.pages.flatMap((page) => page.data.posts) ?? [];
+  const posts =
+    data?.pages.flatMap((page) => page.data.posts) ?? [];
 
   if (posts.length === 0) {
     return <div>No posts yet.</div>;
@@ -45,9 +39,17 @@ export default function UserPosts({ userId }: UserPostsProps) {
         </div>
       ))}
 
-      <div ref={sentinelRef} className="h-10">
-        {isFetchingNextPage && <PostSkeleton />}
-      </div>
+      {hasNextPage && (
+        <div className="flex justify-center py-6">
+          <button
+            onClick={() => fetchNextPage()}
+            disabled={isFetchingNextPage}
+            className="w-full rounded-md border px-6 py-2 cursor-pointer"
+          >
+            {isFetchingNextPage ? "Loading..." : "Show More Posts"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

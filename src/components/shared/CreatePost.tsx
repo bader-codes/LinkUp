@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Link } from "react-router-dom";
 
 export default function CreatePost() {
   const [image, setImage] = useState<File | null>(null);
@@ -79,13 +80,16 @@ export default function CreatePost() {
           What's on your mind?
         </DialogTrigger>
 
-        <div className="h-10 w-10 overflow-hidden rounded-full bg-indigo-400">
+        <Link
+          to={`/profile`}
+          className="h-10 w-10 overflow-hidden rounded-full bg-indigo-400"
+        >
           <img
             src={user?.photo || "/avatar.jpg"}
             alt={user?.name || "Profile"}
             className="h-10 w-10 rounded-full object-cover"
           />
-        </div>
+        </Link>
       </div>
 
       <DialogContent className="sm:max-w-2xl">

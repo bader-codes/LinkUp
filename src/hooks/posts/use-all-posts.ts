@@ -49,7 +49,7 @@ export default function useAllPosts(feed: FeedType) {
         (oldData) => {
           if (!oldData) return oldData;
 
-           // Replace the first page while preserving already loaded pages
+          // Replace the first page while preserving already loaded pages
           return {
             ...oldData,
             pages: [latestPage, ...oldData.pages.slice(1)],

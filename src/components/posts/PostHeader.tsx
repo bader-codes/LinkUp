@@ -16,9 +16,10 @@ import {
 
 interface PostHeaderProps {
   post: Post;
+  isShare: boolean;
 }
 
-export default function PostHeader({ post }: PostHeaderProps) {
+export default function PostHeader({ post, isShare }: PostHeaderProps) {
   // Get User Data From Auth Context To Redirect My Profile
   const authContext = useContext(AuthContext);
 
@@ -55,20 +56,22 @@ export default function PostHeader({ post }: PostHeaderProps) {
           <PostTimestamp createdAt={post.createdAt} />
         </div>
       </div>
-
+      
       {/* Post actions */}
-      <DropdownMenu modal={false}>
-        <DropdownMenuTrigger className="flex h-9 w-9 items-center justify-center rounded-full text-sm hover:bg-gray-100 cursor-pointer">
-          <HiDotsHorizontal className="size-5" />
-        </DropdownMenuTrigger>
+      {isShare && (
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger className="flex h-9 w-9 items-center justify-center rounded-full text-sm hover:bg-gray-100 cursor-pointer">
+            <HiDotsHorizontal className="size-5" />
+          </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="flex w-40 flex-col items-center px-4 py-1 md:w-45">
-          <DropdownMenuItem className="my-2 flex w-full cursor-pointer items-center justify-center gap-2 text-lg hover:bg-blue-500 hover:text-white">
-            <span>Save post</span>
-            <FaBookmark />
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          <DropdownMenuContent className="flex w-40 flex-col items-center px-4 py-1 md:w-45">
+            <DropdownMenuItem className="my-2 flex w-full cursor-pointer items-center justify-center gap-2 text-lg hover:bg-blue-500 hover:text-white">
+              <span>Save post</span>
+              <FaBookmark />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
     </CardHeader>
   );
 }

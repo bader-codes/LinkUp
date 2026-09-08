@@ -1,11 +1,14 @@
 import type { Post } from "@/types/posts/get-all-posts.response";
+import useSharePost from "@/hooks/posts/use-share-post";
 import useLikePost from "@/hooks/posts/use-like-post";
 import { RiShareForwardFill } from "react-icons/ri";
 import { AuthContext } from "@/context/AuthContext";
 import { CardFooter } from "@/components/ui/card";
 import { BiSolidLike } from "react-icons/bi";
 import { GoComment } from "react-icons/go";
+import { toast } from "react-toastify";
 import { useContext } from "react";
+import axios from "axios";
 
 interface PostActionsProps {
   post: Post;
@@ -34,6 +37,44 @@ export default function PostActions({
       postId: post._id,
       userId: user._id,
     });
+  };
+
+  const { mutate, isPending } = useSharePost();
+
+  const handleSharePost = () => {
+    if (isPending) return;
+
+    const toastId = toast.loading("Post is being shared", {
+      position: "bottom-right",
+    });
+
+    mutate(post._id, {
+      onSuccess: () => {
+        toast.update(toastId, {
+          render: "The post was successfully shared.",
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+          position: "bottom-right",
+        });
+      },
+
+      onError: (error) => {
+        const message = axios.isAxiosError(error)
+          ? error.response?.data?.message || "Something went wrong."
+          : "Something went wrong.";
+
+        toast.update(toastId, {
+          render: message,
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+          position: "bottom-right",
+        });
+      },
+    });
+
+    console.log(window.scrollY);
   };
 
   return (
@@ -79,13 +120,16 @@ export default function PostActions({
 
         {/* Share */}
         <div className="flex items-center justify-end">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <button
+              onClick={handleSharePost}
               type="button"
-              className="group flex cursor-pointer items-center justify-center rounded-lg py-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-blue-600"
+              className="group px-2 flex cursor-pointer items-center justify-center rounded-lg py-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-blue-600"
             >
               <RiShareForwardFill className="size-5 transition-transform group-hover:scale-110" />
             </button>
+
+            {post.sharesCount > 0 && <span>{post.sharesCount}</span>}
           </div>
         </div>
       </div>
