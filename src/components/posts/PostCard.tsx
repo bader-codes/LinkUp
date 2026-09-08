@@ -28,7 +28,7 @@ export default function PostCard({ post }: PostCardProps) {
       {post.sharedPost ? (
         <Card className="mx-4 rounded-sm px-2">
           <CardHeader>
-            <PostHeader post={post.sharedPost} isShare={false} />
+            <PostHeader post={post.sharedPost} />
             <PostContent post={post.sharedPost} />
           </CardHeader>
         </Card>

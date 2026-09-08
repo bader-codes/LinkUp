@@ -16,7 +16,7 @@ import {
 
 interface PostHeaderProps {
   post: Post;
-  isShare: boolean;
+  isShare?: boolean;
 }
 
 export default function PostHeader({ post, isShare }: PostHeaderProps) {
