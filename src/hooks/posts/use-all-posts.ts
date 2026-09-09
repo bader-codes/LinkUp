@@ -10,7 +10,7 @@ export type FeedType = "home" | "following";
 export const POSTS_QUERY_KEY = ["posts"];
 
 const LIMIT = 10;
-const REFRESH_INTERVAL = 15_000;
+const REFRESH_INTERVAL = 30_000;
 
 export default function useAllPosts(feed: FeedType) {
   const queryKey = [...POSTS_QUERY_KEY, feed];

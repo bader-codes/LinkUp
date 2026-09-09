@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserProfile from "./pages/UserProfilePage/UserProfilePage";
+import PostDetails from "./components/posts/PostDetails";
 import AuthContextProvider from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import NotFound from "./pages/NotFound/NotFound";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
           { path: "/", element: <Home /> },
           { path: "/profile", element: <Profile /> },
           { path: "/users/:userId", element: <UserProfile /> },
+          { path: "/post/:postId", element: <PostDetails /> },
         ],
       },
     ],
