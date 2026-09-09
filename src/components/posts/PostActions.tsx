@@ -9,21 +9,19 @@ import { GoComment } from "react-icons/go";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface PostActionsProps {
   post: Post;
-
-  // Optional because PostActions is also rendered inside DescComment
-  // where the Comment action doesn't need to open another dialog.
-  onCommentClick?: () => void;
 }
 
 export default function PostActions({
   post,
-  onCommentClick,
 }: PostActionsProps) {
   const auth = useContext(AuthContext);
   const user = auth?.user;
+
+  const navigate = useNavigate();
 
   const { mutate: likePost } = useLikePost();
 
@@ -104,7 +102,7 @@ export default function PostActions({
         {/* Comment */}
         <button
           type="button"
-          onClick={onCommentClick}
+          onClick={() => navigate(`/post/${post._id}`)}
           className="cursor-pointer"
         >
           <div className="flex items-center justify-center gap-2">

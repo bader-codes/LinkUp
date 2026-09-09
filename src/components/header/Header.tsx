@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import Notifications from "./Notifications";
+import Notifications from "../notifications/Notifications";
 import FeedTabs from "./FeedTabs";
 import UserMenu from "./UserMenu";
 

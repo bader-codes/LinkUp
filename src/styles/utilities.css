@@ -5,6 +5,7 @@
 
   html {
     @apply font-sans;
+    overflow-y: scroll;
   }
 
   body {
@@ -32,5 +33,17 @@
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #9ca3af;
+  }
+}
+
+/* Hide Scroll Bar */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
