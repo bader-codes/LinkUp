@@ -5,6 +5,6 @@ export default function useUnreadCount() {
   return useQuery({
     queryKey: ["notifications", "unread-count"],
     queryFn: getUnreadCount,
-    refetchInterval: 10000,
+    refetchInterval: 1000 * 60,
   });
 }

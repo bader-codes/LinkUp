@@ -21,6 +21,6 @@ export default function useNotifications(enabled: boolean) {
 
     enabled,
 
-    refetchInterval: 30000
+    refetchInterval: 1000 * 60,
   });
 }
