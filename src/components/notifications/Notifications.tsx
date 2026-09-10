@@ -30,7 +30,7 @@ export default function Notifications() {
   const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } =
     useNotifications(open);
 
-  const { data: unreadCountResponse, refetch: refetchUnreadCount } =
+  const { data: unreadCountResponse } =
     useUnreadCount();
 
   const { mutate: markAllRead } = useMarkAllRead();
@@ -150,7 +150,6 @@ export default function Notifications() {
               type="button"
               onClick={() => {
                 markAllRead();
-                refetchUnreadCount();
               }}
               className="cursor-pointer text-sm font-medium text-blue-600 transition-colors hover:text-blue-700"
             >
